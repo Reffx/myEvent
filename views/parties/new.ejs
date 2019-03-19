@@ -1,0 +1,48 @@
+<% include ../partials/header %>
+
+  <div class="row justify-content-center">
+    <div class="col-md-12 text-center">
+      <h1 > Füge ein neues Fest hinzu </h1>
+    </div>
+    <div class="col-xs-12 col-md-6 col-lg-4">
+      <form action="/parties" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input class="form-control" type="text" name="party[name]" placeholder="name">
+        </div>
+        <div class="form-group">
+          <label for="date">Datum</label>
+          <input class="form-control" type="Date" name="party[date]" placeholder="Datum">
+        </div>
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input class="form-control" type="text" name="location" id="party[location]" placeholder="Yosemite National Park, CA">
+        </div>
+        <div class="form-group">
+            <label for="image">Bild</label>
+            <div>
+
+            </div>
+          <input type="file" id="image" name="image" accept="image/*" required>
+        </div>
+        <div class="form-group">
+            <label for="cost">Eintrittspreis</label>
+          <input class="form-control" type="number" name="party[cost]" placeholder="Eintrittspreis" step="1" min="0" required>
+        </div>
+        <div class="form-group">
+            <label for="cost">Mindestalter</label>
+          <input class="form-control" type="number" name="party[age]" placeholder="Mindestalter (z.b. 16)" step="1" min="16" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Beschreibung</label>
+          <input class="form-control" type="text" name="party[description]" placeholder="description">
+        </div>
+        <div class="form-group">
+        <button class="btn btn-lg btn-primary btn-block">Senden!</button>
+        </div>
+      </form>
+      <a href="/parties">Back </a>
+    </div>
+  </div>
+
+<% include ../partials/footer %>

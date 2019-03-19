@@ -1,0 +1,71 @@
+<% include ../partials/header %>
+
+  <div class="row">
+    <div class="col-md-3">
+        <div class="list-group">
+        <strong> <li class="list-group-item active">Datum: <%= moment(party.date).format("DD.MM.YYYY") %> </li> </strong>
+          <li class="list-group-item">Eintrittspreis <%= party.cost %> Fr.-  </li>
+          <li class="list-group-item">Ab <%= party.age %> Jahren</li>
+        </div>
+        <div class="mt-4" id="map"></div>
+        <div class="mt-4"> </div>
+        <div class="list-group">
+          <li class="list-group-item active">Links zu <%= party.name %> </li>
+          <li class="list-group-item">Facebook  </li>
+          <li class="list-group-item">Instagram </li>
+          <li class="list-group-item">Webseite  </li>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="card mb-3">
+            <img class="card-img-top" src="<%= party.image %>" alt="<%= party.name %>">
+            <div class="card-body">
+              <h4 class="card-title"><%= party.name %></h4>
+              <p class="card-text" class="card-title"><%= party.description %></p>
+              <p>
+                <em>Submitted by: <%= party.author.username %>, </em>
+              </p>
+            </div>
+          </div>
+            <% if(currentUser && party.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+              <a class="btn btn-warning" href="/parties/<%= party._id %>/edit">Edit</a>
+              <form id="delete-form" action="/parties/<%= party._id %>?_method=DELETE" method="POST">
+                <button class="btn btn-danger">Delete</button>
+            </form>
+            <% } %>
+
+          </div>
+        </div>
+      </div>
+   </div>
+
+   <script>
+  function initMap() {
+    var lat = <%= party.lat %>;
+    var lng = <%= party.lng %>;
+    var center = {lat: lat, lng: lng };
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 13,
+        center: center,
+        scrollwheel: false
+    });
+    var contentString = `
+      <strong><%= party.name %><br />
+      <%= party.location %></strong>
+      <p><%= party.description %></p>
+    `
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    var marker = new google.maps.Marker({
+        position: center,
+        map: map
+    });
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+  }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSDlMWErr_gwT5d5wze8oK9muKPuHLtKQ&callback=initMap"></script>
+
+<% include ../partials/footer %>

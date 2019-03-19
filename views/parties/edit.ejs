@@ -1,0 +1,46 @@
+<% include ../partials/header %>
+
+  <div class="row justify-content-center">
+    <div class="col-md-12 text-center">
+      <h1> Edit <%= party.name %> </h1>
+      </div>
+    <div class="col-xs-12 col-md-6 col-lg-4">
+      <form action="/parties/<%= party._id %>/?_method=PUT" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+        <label for="name">Name</label>
+        <input class="form-control" type="text" name="party[name]" value="<%= party.name %>">
+        </div>
+        <div class="form-group">
+          <label for="date">Datum</label>
+          <input class="form-control" type="date" name="party[date]" value="<%= moment(party.date).format("YYYY-MM-DD") %>" required>
+        </div>
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input class="form-control" type="text" name="location" id="location" value="<%= party.location %>">
+        </div>
+        <div class="form-group">
+            <label for="image">Bild</label>
+            <div></div>
+          <input type="file" id="image" name="image" accept="image/*" >
+        </div>
+        <div class="form-group">
+          <label for="cost">Eintrittspreis</label>
+          <input class="form-control" type="number" name="party[cost]" value="<%= party.cost %>" step="0.50" min="0" required>
+        </div>
+        <div class="form-group">
+          <label for="cost">Mindestalter</label>
+          <input class="form-control" type="number" name="party[age]" value="<%= party.age %>" step="1" min="16" required>
+        </div>
+        <div class="form-group">
+          <label for="description">Beschreibung</label>
+          <input class="form-control" type="text" name="party[description]" value="<%= party.description %>">
+        </div>
+        <div class="form-group">
+        <button class="btn btn-lg btn-primary btn-block">Senden!</button>
+        </div>
+      </form>
+      <a href="/parties">Back </a>
+    </div>
+  </div>
+
+<% include ../partials/footer %>

@@ -1,0 +1,29 @@
+<% include ../partials/header %>
+
+
+  <header class="jumbotron">
+    <div class="container">
+      <h1> This is the Partys page <h1>
+        <p> Informiere dich über die neusten Fester der Umgebung Luzern </p>
+        <p>
+          <a class="btn btn-primary btn-lg" href="/parties/new">Add new Party </a>
+        </p>
+      </div>
+  </header>
+
+    <div class="row text-center">
+      <% parties.forEach(function(parties){ %>
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="card">
+                <img class="card-img-top" src="<%= parties.image %>" alt="<%= parties.name %>">
+                <!-- <div class="card-body"> -->
+                  <h6 class="card-title mt-2"><%= moment(parties.date).format("DD.MM.YYYY") %></h6>
+                  <a href="/parties/<%= parties._id %>" class="btn btn-primary">More Info</a>
+                </div>
+              <!-- </div> -->
+        </div>
+      <% }); %>
+    </div>
+
+
+<% include ../partials/footer %>
